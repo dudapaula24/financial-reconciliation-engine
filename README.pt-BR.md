@@ -41,9 +41,12 @@ python -m reconciliation --bank data/bank_transactions.csv --accounting data/acc
 | Ferramenta | Uso |
 |---|---|
 | Python 3.11+ | Linguagem (`StrEnum` e pandas 3 exigem 3.11) |
-| pandas | Leitura de CSV e manipulação de dados tabulares |
+| pandas 3 | Leitura de CSV e manipulação de dados tabulares |
 | pytest | Testes automatizados |
 | Biblioteca padrão do Python | `argparse`, `logging`, `decimal`, `enum`, `collections`, `tempfile`, `pathlib` |
+
+- **Requisitos:** Python 3.11+ e pandas 3.
+- **Testado com:** Python 3.13.13, pandas 3.0.6 e pytest 9.1.1 (as versões fixadas no `requirements.txt`).
 
 ## Como funciona
 
