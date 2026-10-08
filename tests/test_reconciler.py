@@ -86,6 +86,24 @@ def test_reconcile_keeps_amounts_as_nullable_integers():
         assert result[column].dtype == "Int64", column
 
 
+def test_reconcile_keeps_missing_fields_missing_instead_of_nan_text():
+    result = reconcile(make_records(*SAMPLE_BANK), make_records(*SAMPLE_ACCOUNTING))
+
+    text_columns = ["status", "bank_id", "accounting_id", "bank_description", "accounting_description"]
+    for column in text_columns:
+        assert result[column].dtype == "string", column
+
+    bank_only = result[result["status"] == "BANK_ONLY"]
+    for column in ["accounting_id", "accounting_description", "accounting_amount_cents", "difference_cents"]:
+        assert bank_only[column].isna().all(), column
+
+    accounting_only = result[result["status"] == "ACCOUNTING_ONLY"]
+    for column in ["bank_id", "bank_description", "bank_amount_cents", "difference_cents"]:
+        assert accounting_only[column].isna().all(), column
+
+    assert not result[text_columns].isin(["nan", "NaN", "None", "<NA>", ""]).any().any()
+
+
 def test_reconcile_status_values_are_status_members():
     result = reconcile(make_records(*SAMPLE_BANK), make_records(*SAMPLE_ACCOUNTING))
 

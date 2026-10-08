@@ -21,15 +21,15 @@ class Status(StrEnum):
     ACCOUNTING_ONLY = "ACCOUNTING_ONLY"
 
 
-# Text columns use the pandas string dtype and amounts use the nullable Int64
-# dtype, so a missing value never turns an amount column into float.
+# The "string" and "Int64" dtypes represent missing values as pd.NA, so an empty
+# field never becomes the text "nan" and an amount column never becomes float.
 RESULT_DTYPES = {
-    "status": "str",
-    "bank_id": "str",
-    "accounting_id": "str",
+    "status": "string",
+    "bank_id": "string",
+    "accounting_id": "string",
     "date": "datetime64[us]",
-    "bank_description": "str",
-    "accounting_description": "str",
+    "bank_description": "string",
+    "accounting_description": "string",
     "bank_amount_cents": "Int64",
     "accounting_amount_cents": "Int64",
     "difference_cents": "Int64",
